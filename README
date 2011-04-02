@@ -1,0 +1,28 @@
+ColorSheep:
+
+Spawn colorful sheep instead of the same-old boring sheep your used to seeing. This plugin allows you to spawn multiple sheep in many different colors. It also includes a feature that will randomly assign colors to the spawning sheep. Get ready to rave.
+
+Version 0.1:
+
+This plugin has been tested on 1.4.
+
+Features:
+
+    Spawn a herd of sheep in over 15 different colors
+    Spawn sheep with randomly assigned colors (aka. rave-sheep)
+
+Commands:
+
+    /colorsheep [color] [number] -- Spawns a certain number of sheep (1 - 100) in a certain color
+    /ravesheep [number] -- Spawn a certain number of sheep in random colors
+    /colorlist -- Display the list of applicable colors
+
+Known Bugs:
+
+None at the moment
+
+Changelog:
+
+Version 0.1
+
+    Release!
