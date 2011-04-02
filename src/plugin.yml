@@ -1,0 +1,13 @@
+name: SheepColor
+main: com.majestic53.sheepcolor.SheepColorPlugin
+version: 0.1
+commands:
+  colorsheep:
+    description: Spawns a number of sheep of a given color.
+    usage: "Usage: '/colorsheep [COLOR] [NUMBER]' to spawn a number of sheep of a certain color"
+  ravesheep:
+    description: Spawns a number of sheep in random colors.
+    usage: "Usage: '/ravesheep [NUMBER]' to spawn a number of sheep in random colors"
+  colorlist:
+    description: Displays the list of possible colors.
+    usage: "Usage: '/colorlist' to display the list of possible colors"
