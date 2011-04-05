@@ -21,7 +21,10 @@ public class SettingCommand implements CommandExecutor {
 	
 	/**
 	 * Constructor
-	 * @param plugin - parent plugin
+	 * @param plugin a plugin representing a parent plugin
+	 * @param scs a SheepColorSettings representing a current stat of the plugin
+	 * @param log a Logger representing a plugin Logger
+	 * @param command an integer representing a particular command to execute
 	 */
 	public SettingCommand(SheepColorPlugin plugin, SheepColorSettings scs, Logger log, int command) {
 		this.cmd = command;
@@ -31,18 +34,18 @@ public class SettingCommand implements CommandExecutor {
 	}
 
 	/**
-	 * Run when '/opsheep' '/maxsheep' command is invoked by a player
+	 * Run when a command is invoked by a player
 	 */
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		Player player;
 		switch(cmd) {
-		case 0:
+		case 0: // opsheep
 			if(!(sender instanceof Player)) {
 				scs.toggleOpOnly();
 				if(scs.isOpOnly())
-					log.info("'/colorsheep' & '/ravesheep' set to op only.");
+					log.info("ColorSheep op protection active.");
 				else
-					log.info("'/colorsheep' & '/ravesheep' set to regular use.");
+					log.info("ColorSheep op protection deactive.");
 			} else {
 				player = (Player) sender;
 				if(!player.isOp()) {
@@ -53,12 +56,12 @@ public class SettingCommand implements CommandExecutor {
 					return false;
 				scs.toggleOpOnly();
 				if(scs.isOpOnly())
-					player.sendMessage(ChatColor.YELLOW + "'/colorsheep' & '/ravesheep' set to op only.");
+					player.sendMessage(ChatColor.YELLOW + "ColorSheep op protection active.");
 				else
-					player.sendMessage(ChatColor.YELLOW + "'/colorsheep' & '/ravesheep' set to regular use.");
+					player.sendMessage(ChatColor.YELLOW + "ColorSheep op protection deactive.");
 			}
 			break;
-		case 1:
+		case 1: // maxsheep
 			if(!(sender instanceof Player)) {
 				if(args.length != 1)
 					return false;
@@ -88,6 +91,28 @@ public class SettingCommand implements CommandExecutor {
 					player.sendMessage(ChatColor.RED + "Invalid number of sheep.");
 					return true;
 				}
+			}
+			break;
+		case 2: // spawnravesheep
+			if(!(sender instanceof Player)) {
+				scs.toggleSpawnRaveSheep();
+				if(scs.isSpawnRaveSheep())
+					log.info("Spawn randomly colored sheep enabled.");
+				else
+					log.info("Spawn randomly colored sheep disabled.");
+			} else {
+				player = (Player) sender;
+				if(!player.isOp()) {
+					player.sendMessage(ChatColor.RED + "Player is not OP.");
+					return true;
+				}
+				if(args.length != 0)
+					return false;
+				scs.toggleSpawnRaveSheep();
+				if(scs.isSpawnRaveSheep())
+					player.sendMessage(ChatColor.YELLOW + "Spawn randomly colored sheep enabled.");
+				else
+					player.sendMessage(ChatColor.YELLOW + "Spawn randomly colored sheep disabled.");
 			}
 			break;
 		}
