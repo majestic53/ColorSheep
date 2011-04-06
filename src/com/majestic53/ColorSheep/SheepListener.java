@@ -30,8 +30,7 @@ public class SheepListener extends EntityListener {
 		Random rand = new Random();
 		if((event.getEntity() instanceof Sheep) && scs.isSpawnRandom()) {
 			Sheep spawnSheep = (Sheep) event.getEntity();
-			if(rand.nextBoolean())
-				spawnSheep.setColor(DyeColor.values()[rand.nextInt(DyeColor.values().length)]);
+			spawnSheep.setColor(DyeColor.values()[rand.nextInt(DyeColor.values().length)]);
 		}
 	}
 }
