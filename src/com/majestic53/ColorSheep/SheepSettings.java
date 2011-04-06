@@ -9,36 +9,27 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.util.Properties;
-import java.util.logging.Logger;
-import org.bukkit.plugin.java.JavaPlugin;
 
 public class SheepSettings {
 
-	public static final int defaultMaxSheep = 100;
-	public static final boolean defaultOpOnly = true;
-	public static final boolean defaultSpawnRandom = false;
-	public static final String config = "/colorsheep.settings";
+	private static final int DefaultMaxSheep = 100;
+	private static final boolean DefaultOpOnly = true;
+	private static final boolean DefaultSpawnRandom = false;
+	private static final String ConfigFile = "/colorsheep.settings";
 	
-	public int maxSheep;
-	public boolean OpOnly;
-	public boolean SpawnRandom;
-	public String settings;
-	public String dataFolder;
-	public Logger log;
-	public JavaPlugin plugin;
-	public Properties properties = new Properties();
+	private int maxSheep;
+	private boolean opOnly;
+	private boolean spawnRandom;
+	private String dataFolder;
+	private Properties properties = new Properties();
 	
 	/**
 	 * Constructor
-	 * @param plugin a plugin representing a parent plugin
 	 * @param settings a string representing a config file directory
-	 * @param log a Logger representing a plugin Logger
 	 */
-	public SheepSettings(JavaPlugin plugin, String dataFolder, Logger log) {
-		this.plugin = plugin;
-		this.log = log;
+	public SheepSettings(String dataFolder) {
 		this.dataFolder = dataFolder;
-		File file = new File(dataFolder + config);
+		File file = new File(dataFolder + ConfigFile);
 		if(file.exists())
 			readConfig();
 		else {
@@ -52,12 +43,12 @@ public class SheepSettings {
 	 */
 	public void readConfig() {
 		try {
-			FileInputStream reader = new FileInputStream(dataFolder + config);
+			FileInputStream reader = new FileInputStream(dataFolder + ConfigFile);
 			properties.load(reader);
 			reader.close();
 			maxSheep = Integer.valueOf(properties.getProperty("maxsheep"));
-			OpOnly = Boolean.valueOf(properties.getProperty("oponly"));
-			SpawnRandom = Boolean.valueOf(properties.getProperty("spawnrandom"));
+			opOnly = Boolean.valueOf(properties.getProperty("oponly"));
+			spawnRandom = Boolean.valueOf(properties.getProperty("spawnrandom"));
 			
 		} catch(Exception e) {
 			defaultConfig();
@@ -69,11 +60,11 @@ public class SheepSettings {
 	 */
 	public void writeConfig() {
 		try {
-			FileOutputStream writer = new FileOutputStream(dataFolder + config);
+			FileOutputStream writer = new FileOutputStream(dataFolder + ConfigFile);
 			properties = new Properties();
 			properties.setProperty("maxsheep", String.valueOf(maxSheep));
-			properties.setProperty("oponly", String.valueOf(OpOnly));
-			properties.setProperty("spawnrandom", String.valueOf(SpawnRandom));
+			properties.setProperty("oponly", String.valueOf(opOnly));
+			properties.setProperty("spawnrandom", String.valueOf(spawnRandom));
 			properties.store(writer, "ColorSheep");
 			writer.close();
 		} catch(Exception e) {
@@ -84,13 +75,13 @@ public class SheepSettings {
 	/**
 	 * Sets to a default configuration
 	 */
-	public void defaultConfig() {
-		maxSheep = defaultMaxSheep;
-		OpOnly = defaultOpOnly;
-		SpawnRandom = defaultSpawnRandom;
-		properties.setProperty("maxsheep", String.valueOf(defaultMaxSheep));
-		properties.setProperty("oponly", String.valueOf(defaultOpOnly));
-		properties.setProperty("spawnrandom", String.valueOf(defaultSpawnRandom));
+	private void defaultConfig() {
+		maxSheep = DefaultMaxSheep;
+		opOnly = DefaultOpOnly;
+		spawnRandom = DefaultSpawnRandom;
+		properties.setProperty("maxsheep", String.valueOf(DefaultMaxSheep));
+		properties.setProperty("oponly", String.valueOf(DefaultOpOnly));
+		properties.setProperty("spawnrandom", String.valueOf(DefaultSpawnRandom));
 	}
 	
 	/**
@@ -106,7 +97,7 @@ public class SheepSettings {
 	 * @return a boolean representing an Op only requirement
 	 */
 	public boolean isOpOnly() {
-		return OpOnly;
+		return opOnly;
 	}
 	
 	/**
@@ -114,7 +105,7 @@ public class SheepSettings {
 	 * @return a boolean representing a spawn ravesheep setting
 	 */
 	public boolean isSpawnRandom() {
-		return SpawnRandom;
+		return spawnRandom;
 	}
 	
 	/**
@@ -129,13 +120,13 @@ public class SheepSettings {
 	 * Toggles an Op only requirement
 	 */
 	public void toggleOpOnly() {
-		OpOnly = !OpOnly;
+		opOnly = !opOnly;
 	}
 	
 	/**
 	 * Toggles a spawn random setting
 	 */
 	public void toggleSpawnRandom() {
-		SpawnRandom = !SpawnRandom;
+		spawnRandom = !spawnRandom;
 	}
 }

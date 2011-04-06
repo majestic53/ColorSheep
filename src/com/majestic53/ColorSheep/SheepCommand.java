@@ -7,10 +7,10 @@ package com.majestic53.ColorSheep;
 
 import java.util.List;
 import java.util.Random;
-
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.World;
+import org.bukkit.block.BlockFace;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -18,20 +18,15 @@ import org.bukkit.entity.CreatureType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Sheep;
-import org.bukkit.plugin.PluginDescriptionFile;
 
 public class SheepCommand implements CommandExecutor {
 
-	public static final int maxDist = 100;
-	public static final String commandList[] = {"rave",
-												"status",
-												"colors",
-												"kill"};
+	private static final int MaxDist = 100;
+	private static final String CommandList[] = {"rave", "status", "colors", "kill"};
 	
-	public DyeColor dyeColor;
-	public ColorSheep plugin;
-	public SheepSettings scs;
-	public PluginDescriptionFile pdf;
+	private DyeColor dyeColor;
+	private ColorSheep plugin;
+	private SheepSettings scs;
 	
 	/**
 	 * Constructor
@@ -41,7 +36,6 @@ public class SheepCommand implements CommandExecutor {
 	public SheepCommand(ColorSheep plugin, SheepSettings scs) {
 		this.plugin = plugin;
 		this.scs = scs;
-		pdf = plugin.getDescription();
 	}
 	
 	/**
@@ -49,12 +43,12 @@ public class SheepCommand implements CommandExecutor {
 	 */
 	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 		if(args.length == 1) {
-			if(args[0].equals(commandList[1])) {
+			if(args[0].equals(CommandList[1])) {
 				sender.sendMessage(ChatColor.YELLOW + "Spawn cap: " + scs.getMaxSheep());
 				sender.sendMessage(ChatColor.YELLOW + "Op protection: " + scs.isOpOnly());
 				sender.sendMessage(ChatColor.YELLOW + "Spawn colored sheep: " + scs.isSpawnRandom());
 				return true;
-			} else if(args[0].equals(commandList[2])) {
+			} else if(args[0].equals(CommandList[2])) {
 				for(DyeColor col : DyeColor.values())
 					sender.sendMessage(ChatColor.YELLOW + col.toString().toLowerCase());
 				return true;
@@ -73,7 +67,7 @@ public class SheepCommand implements CommandExecutor {
 			return true;
 		}
 		if(args.length == 1) {
-			if(args[0].equals(commandList[3])) {
+			if(args[0].equals(CommandList[3])) {
 				List<LivingEntity> entities = plugin.getServer().getWorlds().get(0).getLivingEntities();
 				for(int i = 0; i < entities.size(); i++)
 					if(entities.get(i) instanceof Sheep)
@@ -82,20 +76,20 @@ public class SheepCommand implements CommandExecutor {
 			} else
 				return false;
 		} else if(args.length == 2) {
-			if(args[0].equals(commandList[0])) {
+			if(args[0].equals(CommandList[0])) {
 				try {
 					if(Integer.valueOf(args[1]) < 1 || Integer.valueOf(args[1]) > scs.getMaxSheep())
 						throw new NumberFormatException();
 					boolean temp = scs.isSpawnRandom();
 					if(temp)
-						scs.SpawnRandom = !scs.SpawnRandom;				
+						scs.toggleSpawnRandom();				
 					for(int i = 0; i < Integer.valueOf(args[1]); i++) {
-						entity = world.spawnCreature(player.getTargetBlock(null, maxDist).getLocation(), CreatureType.SHEEP);
+						entity = world.spawnCreature(player.getTargetBlock(null, MaxDist).getFace(BlockFace.UP).getLocation(), CreatureType.SHEEP);
 						Sheep newSheep = (Sheep) entity;
 						newSheep.setColor(DyeColor.values()[rand.nextInt(DyeColor.values().length)]);
 					}
-					if(temp)
-						scs.SpawnRandom = temp;
+					if(temp && !scs.isSpawnRandom())
+						scs.toggleSpawnRandom();
 					player.sendMessage(ChatColor.YELLOW + "Spawned " + Integer.valueOf(args[1]) + " sheep of random colors.");
 				} catch(NumberFormatException e) {
 					player.sendMessage(ChatColor.RED + "Invalid number of sheep (1 - " + scs.getMaxSheep() + ").");
@@ -107,14 +101,14 @@ public class SheepCommand implements CommandExecutor {
 						throw new NumberFormatException();
 					boolean temp = scs.isSpawnRandom();
 					if(temp)
-						scs.SpawnRandom = !scs.SpawnRandom;
+						scs.toggleSpawnRandom();
 					for(int i = 0; i < Integer.valueOf(args[1]); i++) {
-						entity = world.spawnCreature(player.getTargetBlock(null, maxDist).getLocation(), CreatureType.SHEEP);
+						entity = world.spawnCreature(player.getTargetBlock(null, MaxDist).getFace(BlockFace.UP).getLocation(), CreatureType.SHEEP);
 						Sheep newSheep = (Sheep) entity;
 						newSheep.setColor(dyeColor);
 					}
-					if(temp)
-						scs.SpawnRandom = temp;
+					if(temp && !scs.isSpawnRandom())
+						scs.toggleSpawnRandom();
 					player.sendMessage(ChatColor.YELLOW + "Spawned " + Integer.valueOf(args[1]) + " sheep of color " + dyeColor.toString().toLowerCase() + ".");
 				} catch(NumberFormatException e) {
 					player.sendMessage(ChatColor.RED + "Invalid number of sheep (1 - " + scs.getMaxSheep() + ").");
@@ -132,7 +126,7 @@ public class SheepCommand implements CommandExecutor {
 	 * @param color a string representing a dye color
 	 * @return an associated DyeColor, or null if a dye color does not exist
 	 */
-	public DyeColor isColor(String color) {
+	private DyeColor isColor(String color) {
 		for(DyeColor col : DyeColor.values())
 			if(col.toString().equals(color.toUpperCase()))
 				return col;

@@ -14,11 +14,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class ColorSheep extends JavaPlugin {
 
-	public SheepSettings scs;
-	public PluginDescriptionFile pdf;
-	public SheepListener sheepListener;
-	public PluginManager pluginManager;
-	public Logger log = Logger.getLogger("minecraft");
+	private SheepSettings scs;
+	private PluginDescriptionFile pdf;
+	private SheepListener sheepListener;
+	private PluginManager pluginManager;
+	private Logger log = Logger.getLogger("minecraft");
 	
 	/**
 	 * Run when a plugin is disabled
@@ -35,13 +35,13 @@ public class ColorSheep extends JavaPlugin {
 	public void onEnable() {
 		if(!getDataFolder().isDirectory())
 			getDataFolder().mkdir();
-		scs = new SheepSettings(this, getDataFolder().getAbsolutePath(), log);
+		scs = new SheepSettings(getDataFolder().getAbsolutePath());
 		scs.readConfig();
-		sheepListener = new SheepListener(this, scs);
+		sheepListener = new SheepListener(scs);
 		pluginManager = getServer().getPluginManager();
 		pluginManager.registerEvent(Event.Type.CREATURE_SPAWN, sheepListener, Priority.Normal, this);
 		getCommand("sheep").setExecutor(new SheepCommand(this, scs));
-		getCommand("sheepset").setExecutor(new SheepSetCommand(this, scs, log));
+		getCommand("sheepset").setExecutor(new SheepSetCommand(scs));
 		pdf = this.getDescription();
 		log.info(pdf.getName() + " version " + pdf.getVersion() + " is enabled.");
 	}
