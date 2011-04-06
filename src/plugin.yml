@@ -1,28 +1,10 @@
-name: SheepColor
-main: com.majestic53.sheepcolor.SheepColorPlugin
-version: 0.3
+name: ColorSheep
+main: com.majestic53.ColorSheep.ColorSheep
+version: 0.4
 commands:
-  colorsheep:
-    description: Spawns a number of sheep of a given color.
-    usage: "Usage: '/colorsheep [COLOR] [NUMBER]' to spawn a number of sheep of a certain color"
-  ravesheep:
-    description: Spawns a number of sheep in random colors.
-    usage: "Usage: '/ravesheep [NUMBER]' to spawn a number of sheep in random colors"
-  colorlist:
-    description: Displays the list of possible colors.
-    usage: "Usage: '/colorlist' to display the list of possible colors"
-  sheepstatus:
-    description: Displays the status of the colorsheep plugin.
-    usage: "Usage: '/sheepstatus' to display the status of the colorsheep plugin"
-  opsheep:
-    description: Toggles the permissions of colorsheep.
-    usage: "Usage: '/opsheep' to toggle the permissions of colorsheep"
-  maxsheep:
-    description: Set the max number of sheep to spawn.
-    usage: "Usage: '/maxsheep [NUMBER]' to set the max number of sheep to spawn"
-  killsheep:
-    description: Kills all sheep within a close proximity to the player.
-    usage: "Usage: '/killsheep' to kill all sheep within a close proximity"
-  spawnravesheep:
-    description: Toggles the spawning of randomly colored sheep.
-    usage: "Usage: '/spawnravesheep' to toggle whether or not sheep are spawned in random colors"
+  sheep:
+    description: Spawns a number of sheep of a given color, or in a random color.
+    usage: "Usage: '/sheep ([COLOR] [NUMBER] | rave [NUMBER] | kill | status | colors)'"
+  sheepset:
+    description: Change a ColorSheep plugin setting.
+    usage: "Usage: '/sheepset (oponly | spawnrandom | max [NUMBER])'"

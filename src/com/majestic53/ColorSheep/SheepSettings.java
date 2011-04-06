@@ -1,9 +1,9 @@
 /**
- * SheepColorSettings.java
+ * SheepSettings.java
  * @author majestic53
  */
 
-package com.majestic53.sheepcolor;
+package com.majestic53.ColorSheep;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,29 +12,29 @@ import java.util.Properties;
 import java.util.logging.Logger;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class SheepColorSettings {
+public class SheepSettings {
 
-	public static final String config = "/colorsheep.settings";
 	public static final int defaultMaxSheep = 100;
 	public static final boolean defaultOpOnly = true;
-	public static final boolean defaultSpawnRaveSheep = false;
+	public static final boolean defaultSpawnRandom = false;
+	public static final String config = "/colorsheep.settings";
 	
 	public int maxSheep;
+	public boolean OpOnly;
+	public boolean SpawnRandom;
 	public String settings;
 	public String dataFolder;
-	public boolean OpOnly;
-	public boolean SpawnRaveSheep;
-	public JavaPlugin plugin;
 	public Logger log;
+	public JavaPlugin plugin;
 	public Properties properties = new Properties();
 	
 	/**
 	 * Constructor
 	 * @param plugin a plugin representing a parent plugin
-	 * @param settings a string representing a config file
+	 * @param settings a string representing a config file directory
 	 * @param log a Logger representing a plugin Logger
 	 */
-	public SheepColorSettings(JavaPlugin plugin, String dataFolder, Logger log) {
+	public SheepSettings(JavaPlugin plugin, String dataFolder, Logger log) {
 		this.plugin = plugin;
 		this.log = log;
 		this.dataFolder = dataFolder;
@@ -57,7 +57,7 @@ public class SheepColorSettings {
 			reader.close();
 			maxSheep = Integer.valueOf(properties.getProperty("maxsheep"));
 			OpOnly = Boolean.valueOf(properties.getProperty("oponly"));
-			SpawnRaveSheep = Boolean.valueOf(properties.getProperty("ravesheep"));
+			SpawnRandom = Boolean.valueOf(properties.getProperty("spawnrandom"));
 			
 		} catch(Exception e) {
 			defaultConfig();
@@ -73,8 +73,8 @@ public class SheepColorSettings {
 			properties = new Properties();
 			properties.setProperty("maxsheep", String.valueOf(maxSheep));
 			properties.setProperty("oponly", String.valueOf(OpOnly));
-			properties.setProperty("ravesheep", String.valueOf(SpawnRaveSheep));
-			properties.store(writer, "SheepColorPluginConfig");
+			properties.setProperty("spawnrandom", String.valueOf(SpawnRandom));
+			properties.store(writer, "ColorSheep");
 			writer.close();
 		} catch(Exception e) {
 			
@@ -87,10 +87,10 @@ public class SheepColorSettings {
 	public void defaultConfig() {
 		maxSheep = defaultMaxSheep;
 		OpOnly = defaultOpOnly;
-		SpawnRaveSheep = defaultSpawnRaveSheep;
+		SpawnRandom = defaultSpawnRandom;
 		properties.setProperty("maxsheep", String.valueOf(defaultMaxSheep));
 		properties.setProperty("oponly", String.valueOf(defaultOpOnly));
-		properties.setProperty("ravesheep", String.valueOf(defaultSpawnRaveSheep));
+		properties.setProperty("spawnrandom", String.valueOf(defaultSpawnRandom));
 	}
 	
 	/**
@@ -110,11 +110,11 @@ public class SheepColorSettings {
 	}
 	
 	/**
-	 * Returns a spawn ravesheep setting
+	 * Returns a spawn random setting
 	 * @return a boolean representing a spawn ravesheep setting
 	 */
-	public boolean isSpawnRaveSheep() {
-		return SpawnRaveSheep;
+	public boolean isSpawnRandom() {
+		return SpawnRandom;
 	}
 	
 	/**
@@ -133,9 +133,9 @@ public class SheepColorSettings {
 	}
 	
 	/**
-	 * Toggles a spawn ravesheep setting
+	 * Toggles a spawn random setting
 	 */
-	public void toggleSpawnRaveSheep() {
-		SpawnRaveSheep = !SpawnRaveSheep;
+	public void toggleSpawnRandom() {
+		SpawnRandom = !SpawnRandom;
 	}
 }

@@ -3,7 +3,7 @@
  * @author majestic53
  */
 
-package com.majestic53.sheepcolor;
+package com.majestic53.ColorSheep;
 
 import java.util.Random;
 import org.bukkit.DyeColor;
@@ -13,16 +13,16 @@ import org.bukkit.event.entity.EntityListener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class SheepListener extends EntityListener {
-
+	
 	public JavaPlugin plugin;
-	public SheepColorSettings scs;
+	public SheepSettings scs;
 	
 	/**
 	 * Constructor
-	 * @param plugin
-	 * @param scs
+	 * @param plugin a plugin representing a parent plugin
+	 * @param scs a SheepSettings representing a plugins settings
 	 */
-	public SheepListener(JavaPlugin plugin, SheepColorSettings scs) {
+	public SheepListener(JavaPlugin plugin, SheepSettings scs) {
 		this.plugin = plugin;
 		this.scs = scs;
 	}
@@ -32,9 +32,10 @@ public class SheepListener extends EntityListener {
 	 */
 	public void onCreatureSpawn(CreatureSpawnEvent event) {
 		Random rand = new Random();
-		if((event.getEntity() instanceof Sheep) && scs.isSpawnRaveSheep()) {
+		if((event.getEntity() instanceof Sheep) && scs.isSpawnRandom()) {
 			Sheep spawnSheep = (Sheep) event.getEntity();
-			spawnSheep.setColor(DyeColor.values()[rand.nextInt(DyeColor.values().length)]);
+			if(rand.nextBoolean())
+				spawnSheep.setColor(DyeColor.values()[rand.nextInt(DyeColor.values().length)]);
 		}
 	}
 }
