@@ -68,7 +68,7 @@ public class SheepCommand implements CommandExecutor {
 		Random rand = new Random();
 		World world = plugin.getServer().getWorlds().get(0);
 		if(args.length == 1) {
-			if(args[0].equals(COMMANDLIST[3])) {
+			if(args[0].equals(COMMANDLIST[3])) { // kill
 				if(plugin.permissionsEnabled)
 					if (!(plugin).permissions.has(player, "colorsheep.kill")) {
 						player.sendMessage(ChatColor.RED + "Player does not have proper permission.");
