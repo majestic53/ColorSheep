@@ -2,21 +2,20 @@ ColorSheep by majestic53 (majestic53@gmail.com)
 
 Spawn colorful sheep instead of the same-old boring sheep your used to seeing. This plugin allows you to spawn multiple sheep in many different colors. It also includes a feature that will randomly assign colors to the spawning sheep. Get ready to rave.
 
-Version 0.4:
+Version 0.5:
 
-This plugin has been tested on 1.4.
+This plugin has been tested on 1.5.
 
 Features:
 
     Spawn a herd of sheep in over 15 different colors
     Spawn sheep with randomly assigned colors (aka. rave-sheep)
-    Set all naturally spawning sheep to random colors
-    
+    Set all naturally spawning sheep to random colors (not working 100%)
+    Supports permissions
 
 Commands:
 
-    /sheepset 	oponly -- Toggle Op permissions
-		spawnrandom -- Toggle if naturally spawning sheep get random colors
+    /sheepset   spawnrandom -- Toggle if naturally spawning sheep get random colors
 		max [NUMBER] -- Change the max spawn cap
 
     /sheep 	[COLOR] [NUMBER] -- Spawns a certain number of sheep (1 - 100) in a certain color
@@ -25,11 +24,26 @@ Commands:
 		status -- Display the plugin status
 		colors -- Display the list of applicable colors
 
+Permissions:
+
+	/sheepset spawnrandom -- 'colorsheep.spawnrand'
+	/sheepset max [NUMBER] -- 'colorsheep.max'
+
+	/sheep [COLOR] [NUMBER] -- 'colorsheep.spawn'
+	/sheep rave [NUMBER] -- 'colorsheep.rave'
+	/sheep kill -- 'colorsheep.kill'
+	/sheep status -- 'colorsheep.status'
+	/sheep colors -- 'colorsheep.colors'
+
 Known Bugs:
 
 None at the moment
 
 Changelog:
+
+Version 0.5
+
+    Added permission support
 
 Version 0.4
 

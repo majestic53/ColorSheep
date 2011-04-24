@@ -13,14 +13,13 @@ import org.bukkit.event.entity.EntityListener;
 
 public class SheepListener extends EntityListener {
 
-	private SheepSettings scs;
+	public ColorSheep plugin;
 	
 	/**
 	 * Constructor
-	 * @param scs a SheepSettings representing a plugins settings
 	 */
-	public SheepListener(SheepSettings scs) {
-		this.scs = scs;
+	public SheepListener(ColorSheep plugin) {
+		this.plugin = plugin;
 	}
 	
 	/**
@@ -28,7 +27,7 @@ public class SheepListener extends EntityListener {
 	 */
 	public void onCreatureSpawn(CreatureSpawnEvent event) {
 		Random rand = new Random();
-		if((event.getEntity() instanceof Sheep) && scs.isSpawnRandom()) {
+		if((event.getEntity() instanceof Sheep) && plugin.scs.isSpawnRandom()) {
 			Sheep spawnSheep = (Sheep) event.getEntity();
 			spawnSheep.setColor(DyeColor.values()[rand.nextInt(DyeColor.values().length)]);
 		}

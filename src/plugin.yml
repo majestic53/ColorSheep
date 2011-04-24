@@ -1,10 +1,10 @@
 name: ColorSheep
 main: com.majestic53.ColorSheep.ColorSheep
-version: 0.4
+version: 0.5
 commands:
   sheep:
     description: Spawns a number of sheep of a given color, or in a random color.
     usage: "Usage: '/sheep ([COLOR] [NUMBER] | rave [NUMBER] | kill | status | colors)'"
   sheepset:
     description: Change a ColorSheep plugin setting.
-    usage: "Usage: '/sheepset (oponly | spawnrandom | max [NUMBER])'"
+    usage: "Usage: '/sheepset (spawnrandom | max [NUMBER])'"
