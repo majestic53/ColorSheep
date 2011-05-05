@@ -27,7 +27,7 @@ public class SheepListener extends EntityListener {
 	 */
 	public void onCreatureSpawn(CreatureSpawnEvent event) {
 		Random rand = new Random();
-		if((event.getEntity() instanceof Sheep) && plugin.scs.isSpawnRandom()) {
+		if((event.getEntity() instanceof Sheep) && plugin.scs.isSpawnRandom() && plugin.scs.worldList.contains(event.getLocation().getWorld().getName())) {
 			Sheep spawnSheep = (Sheep) event.getEntity();
 			spawnSheep.setColor(DyeColor.values()[rand.nextInt(DyeColor.values().length)]);
 		}
