@@ -35,7 +35,7 @@ public class SheepSettings {
 		else {
 			defaultConfig();
 			writeConfig();
-		}		
+		}
 	}
 	
 	/**

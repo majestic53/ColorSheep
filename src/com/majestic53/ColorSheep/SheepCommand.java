@@ -66,7 +66,7 @@ public class SheepCommand implements CommandExecutor {
 		}
 		LivingEntity entity;
 		Random rand = new Random();
-		World world = plugin.getServer().getWorlds().get(0);
+		World world = player.getWorld();
 		if(args.length == 1) {
 			if(args[0].equals(COMMANDLIST[3])) { // kill
 				if(plugin.permissionsEnabled)
@@ -74,7 +74,7 @@ public class SheepCommand implements CommandExecutor {
 						player.sendMessage(ChatColor.RED + "Player does not have proper permission.");
 						return true;
 					}
-				List<LivingEntity> entities = plugin.getServer().getWorlds().get(0).getLivingEntities();
+				List<LivingEntity> entities = world.getLivingEntities();
 				for(int i = 0; i < entities.size(); i++)
 					if(entities.get(i) instanceof Sheep)
 						entities.get(i).setHealth(0);
